@@ -77,12 +77,66 @@ const getAllCrimes = async (request, response) => {
     });
 };
 
+const login = async (request, response) => {
+
+    var username = request.body.username;
+    var password = request.body.password;
+
+    var sql = "SELECT * FROM users WHERE username ='"+username+"' && password ='"+password+"'";
+
+    var returnObj = {
+        status:1,
+        data:""
+    }
+
+    conn.query(sql, function (error, results) {
+        if (error){
+            returnObj.data = error;
+            response.status(500).json(returnObj)
+        }
+
+
+        returnObj.status = 0;
+        returnObj.data = results;
+        response.status(200).json(returnObj)
+    });
+};
+
+const register = async (request, response) => {
+
+    var username = request.body.username;
+    var password = request.body.password;
+    var type = request.body.type;
+    var status = request.body.status;
+    var contact_no = request.body.contact_no;
+
+    var sql = "INSERT INTO users VALUES ('','"+unit_no+"','"+status+"','"+type+"','"+contact_no+"','"+username+"','"+password+"'')";
+
+    var returnObj = {
+        status:1,
+        data:""
+    }
+
+    conn.query(sql, function (error, results) {
+        if (error){
+            returnObj.data = error;
+            response.status(500).json(returnObj)
+        }
+
+
+        returnObj.status = 0;
+        returnObj.data = results;
+        response.status(200).json(returnObj)
+    });
+};
+
 
 
 
 module.exports = {
     reportCrime,
     editCrime,
-    getAllCrimes
-    
+    getAllCrimes,
+    login,
+    register
 };

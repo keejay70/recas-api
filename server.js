@@ -28,6 +28,10 @@ app.post('/editCrime', api.editCrime);
 
 app.get('/getAllCrimes', api.getAllCrimes);
 
+app.post('/register', api.register);
+
+app.post('/login', api.login);
+
 app.listen(port, () => {
   console.log(`listening on port: `+port);
 });
