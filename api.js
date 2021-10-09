@@ -223,7 +223,7 @@ const login = async (request, response) => {
     });
 };
   
-const getUnitLocation = (req) => {
+const getUnitLocation = (req,res) => {
     var lat = req.body.lat;
     var long = req.body.long;
     var accuracy = req.body.accuracy;
