@@ -26,7 +26,9 @@ const reportCrime = async (request, response) => {
     var sql = "INSERT INTO crimes VALUES ('','"+report_details+"','"+crimeType_id+"','"+datetime+"','"+reporter_name+"','"+reporter_contact+"','"+reporter_address+"','"+latitude+"','"+longitude+"','"+statuss+"','"+user_id+"')"
     
     conn.query(sql, function (error, results) {
-        if (error) throw error;
+        if (error) {
+            return response.status(500).json("error adding crime")
+        }
 
         response.status(200).json("Crime reported")
     });
@@ -49,7 +51,9 @@ const editCrime = async (request, response) => {
     var sql = "UPDATE crimes SET report_details='"+report_details+"', crimeType_id="+crimeType_id+", reporter_name='"+reporter_name+"', reporter_contact='"+reporter_contact+"', reporter_address='"+reporter_address+"', latitude="+latitude+", longitude="+longitude+", status='"+statuss+"', user_id="+user_id+" WHERE id="+4;
     
     conn.query(sql, function (error, results) {
-        if (error) throw error;
+        if (error) {
+            return response.status(500).json("error updating crime")
+        }
 
         response.status(200).json("Crime report updated")
     });
@@ -67,7 +71,7 @@ const getAllCrimes = async (request, response) => {
     conn.query(sql, function (error, results) {
         if (error){
             returnObj.data = error;
-            response.status(500).json(returnObj)
+            return response.status(500).json(returnObj)
         }
 
 
@@ -95,7 +99,7 @@ const searchCrime = async (request, response) => {
     conn.query(sql, function (error, results) {
         if (error){
             returnObj.data = error;
-            response.status(500).json(returnObj)
+            return response.status(500).json(returnObj)
         }
 
 
@@ -118,7 +122,7 @@ const getAllCrimeTypes = async (request, response) => {
     conn.query(sql, function (error, results) {
         if (error){
             returnObj.data = error;
-            response.status(500).json(returnObj)
+            return response.status(500).json(returnObj)
         }
 
 
@@ -138,7 +142,9 @@ const sendLatLong = async (request, response) => {
     var sql = "UPDATE crimes SET latitude="+latitude+", longitude="+longitude+" WHERE id="+id;
     
     conn.query(sql, function (error, results) {
-        if (error) throw error;
+        if (error) {
+            return response.status(500).json("not ok")
+        }
 
         response.status(200).json("ok")
     });
@@ -159,7 +165,7 @@ const register = async (request, response) => {
     conn.query(sql, function (error, results) {
         if (error){
             returnObj.data = error;
-            response.status(500).json(returnObj)
+            return response.status(500).json(returnObj)
         }
 
 
@@ -180,7 +186,7 @@ const login = async (request, response) => {
     conn.query(sql, function (error, results) {
         if (error){
             returnObj.data = error;
-            response.status(500).json(returnObj)
+            return response.status(500).json(returnObj)
         }
 
 
