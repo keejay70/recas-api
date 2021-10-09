@@ -127,6 +127,23 @@ const getAllCrimeTypes = async (request, response) => {
 };
 
 
+const sendLatLong = async (request, response) => {
+
+    var latitude = request.body.latitude;
+    var longitude = request.body.longitude;
+    var id = request.body.id;
+
+    var sql = "UPDATE crimes SET latitude="+latitude+", longitude="+longitude+" WHERE id="+id;
+    
+    conn.query(sql, function (error, results) {
+        if (error) throw error;
+
+        response.status(200).json("ok")
+    });
+
+};
+
+
 
 
 
