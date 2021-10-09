@@ -24,6 +24,10 @@ app.get('/', (req, res) => {
 
 app.post('/reportCrime', api.reportCrime);
 
+app.post('/editCrime', api.editCrime);
+
+app.get('/getAllCrimes', api.getAllCrimes);
+
 app.listen(port, () => {
   console.log(`listening on port: `+port);
 });
