@@ -34,6 +34,10 @@ app.get('/getAllCrimeTypes', api.getAllCrimeTypes);
 
 app.get('/sendLatLong', api.sendLatLong);
 
+app.post('/register', api.register);
+
+app.post('/login', api.login);
+
 app.listen(port, () => {
   console.log(`listening on port: `+port);
 });
