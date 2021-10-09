@@ -18,7 +18,6 @@ var conn = mysql.createConnection({
 conn.connect();
 
 const reportCrime = async (request, response) => {
-
     var report_details = request.body.report_details;
     var crimeType_id = request.body.crimeType_id;
     var datetime = new Date();
@@ -162,6 +161,11 @@ const sendLatLong = async (request, response) => {
 
 const register = async (request, response) => {
 
+    var returnObj = {
+        status:1,
+        data:""
+    }
+
     var username = request.body.username;
     var password = request.body.password;
     var type = request.body.type;
@@ -185,6 +189,11 @@ const register = async (request, response) => {
 };
 
 const login = async (request, response) => {
+
+    var returnObj = {
+        status:1,
+        data:""
+    }
 
     var username = request.body.username;
     var password = request.body.password;
