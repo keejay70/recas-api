@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const api = require('./api');
-const port = 3000
+const port = process.env.PORT || 3000;
 // enabling CORS to accept from all origins
 app.use(cors());
 // express.json() and express.urlencoded() are built-in middleware functions to support JSON-encoded and URL-encoded bodies.

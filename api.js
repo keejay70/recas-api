@@ -1,10 +1,11 @@
 const mysql = require('mysql');
+require('dotenv').config();
 
 var conn = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'root',
-  password : '',
-  database : 'gisdb'
+  host     : process.env.DB_HOST,
+  user     : process.env.DB_USER,
+  password : process.env.PASSWORD,
+  database : process.env.DATABASE,
 });
 
 conn.connect();
