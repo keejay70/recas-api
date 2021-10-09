@@ -5,6 +5,7 @@ const cors = require('cors');
 const api = require('./api');
 // const pusher = require('./pusher');
 const port = 3000
+const port = process.env.PORT || 3000;
 // enabling CORS to accept from all origins
 app.use(cors());
 // express.json() and express.urlencoded() are built-in middleware functions to support JSON-encoded and URL-encoded bodies.
@@ -29,11 +30,11 @@ app.post('/editCrime', api.editCrime);
 
 app.get('/getAllCrimes', api.getAllCrimes);
 
-app.get('/searchCrime', api.searchCrime);
+app.post('/searchCrime', api.searchCrime);
 
 app.get('/getAllCrimeTypes', api.getAllCrimeTypes);
 
-app.get('/sendLatLong', api.sendLatLong);
+app.post('/sendLatLong', api.sendLatLong);
 
 app.post('/register', api.register);
 

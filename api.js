@@ -9,17 +9,25 @@ const pusher = new Pusher({
     useTLS: true
 });
 
+require('dotenv').config();
+
+// var conn = mysql.createConnection({
+//   host     : process.env.DB_HOST,
+//   user     : process.env.DB_USER,
+//   password : process.env.PASSWORD,
+//   database : process.env.DATABASE,
+// });
+
 var conn = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'root',
-  password : '',
-  database : 'gisdb'
-});
+    host     : "remotemysql.com",
+    user     : "i1vjyob0OY",
+    password : "GNJ2drDQPG",
+    database : "i1vjyob0OY",
+  });
 
 conn.connect();
 
 const reportCrime = async (request, response) => {
-
     var report_details = request.body.report_details;
     var crimeType_id = request.body.crimeType_id;
     var datetime = new Date();
@@ -28,7 +36,7 @@ const reportCrime = async (request, response) => {
     var reporter_address = request.body.reporter_address;
     var latitude = request.body.latitude;
     var longitude = request.body.longitude;
-    var statuss = "ongoing"
+    var statuss = "ongoing";
     var user_id = request.body.user_id;
 
 
@@ -36,10 +44,10 @@ const reportCrime = async (request, response) => {
     
     conn.query(sql, function (error, results) {
         if (error) {
-            return response.status(500).json("error adding crime")
+            return response.status(500).json("error adding crime");
         }
 
-        response.status(200).json("Crime reported")
+        response.status(200).json("Crime reported");
     });
 };
 
@@ -53,7 +61,7 @@ const editCrime = async (request, response) => {
     var reporter_address = request.body.reporter_address;
     var latitude = request.body.latitude;
     var longitude = request.body.longitude;
-    var statuss = "ongoing"
+    var statuss = "ongoing";
     var user_id = request.body.user_id;
 
 
@@ -148,7 +156,7 @@ const sendLatLong = async (request, response) => {
     var longitude = request.body.longitude;
     var id = request.body.id;
 
-    var sql = "UPDATE crimes SET latitude="+latitude+", longitude="+longitude+" WHERE id="+id;
+    var sql = "UPDATE users SET latitude="+latitude+", longitude="+longitude+" WHERE id="+id;
     
     conn.query(sql, function (error, results) {
         if (error) {
@@ -162,6 +170,11 @@ const sendLatLong = async (request, response) => {
 
 
 const register = async (request, response) => {
+
+    var returnObj = {
+        status:1,
+        data:""
+    }
 
     var username = request.body.username;
     var password = request.body.password;
@@ -186,6 +199,11 @@ const register = async (request, response) => {
 };
 
 const login = async (request, response) => {
+
+    var returnObj = {
+        status:1,
+        data:""
+    }
 
     var username = request.body.username;
     var password = request.body.password;
