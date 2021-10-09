@@ -1,12 +1,19 @@
 const mysql = require('mysql');
 require('dotenv').config();
 
+// var conn = mysql.createConnection({
+//   host     : process.env.DB_HOST,
+//   user     : process.env.DB_USER,
+//   password : process.env.PASSWORD,
+//   database : process.env.DATABASE,
+// });
+
 var conn = mysql.createConnection({
-  host     : process.env.DB_HOST,
-  user     : process.env.DB_USER,
-  password : process.env.PASSWORD,
-  database : process.env.DATABASE,
-});
+    host     : "remotemysql.com",
+    user     : "i1vjyob0OY",
+    password : "GNJ2drDQPG",
+    database : "i1vjyob0OY",
+  });
 
 conn.connect();
 
@@ -82,33 +89,33 @@ const getAllCrimes = async (request, response) => {
     });
 };
 
-// const searchCrime = async (request, response) => {
+const searchCrime = async (request, response) => {
     
-//     var report_details = request.body.report_details;
-//     var crimeType_id = request.body.crimeType_id;
-//     var reporter_contact = request.body.reporter_contact;
-//     var statuss = request.body.status;
-//     var date = request.body.status;
+    var report_details = request.body.report_details;
+    var crimeType_id = request.body.crimeType_id;
+    var reporter_contact = request.body.reporter_contact;
+    var statuss = request.body.status;
+    var date = request.body.status;
 
-//     var returnObj = {
-//         status:1,
-//         data:""
-//     }
+    var returnObj = {
+        status:1,
+        data:""
+    }
 
-//     var sql = "SELECT * FROM crimes WHERE ("+report_details+" IS NULL OR report_details="+report_details+") AND ("+crimeType_id+" IS NULL OR crimeType_id="+crimeType_id+") AND ("+reporter_contact+" IS NULL OR reporter_contact="+reporter_contact+") AND ("+statuss+" IS NULL OR statuss="+statuss+")";
+    var sql = "SELECT * FROM crimes WHERE ("+report_details+" IS NULL OR report_details="+report_details+") AND ("+crimeType_id+" IS NULL OR crimeType_id="+crimeType_id+") AND ("+reporter_contact+" IS NULL OR reporter_contact="+reporter_contact+") AND ("+statuss+" IS NULL OR statuss="+statuss+")";
 
-//     conn.query(sql, function (error, results) {
-//         if (error){
-//             returnObj.data = error;
-//             return response.status(500).json(returnObj)
-//         }
+    conn.query(sql, function (error, results) {
+        if (error){
+            returnObj.data = error;
+            return response.status(500).json(returnObj)
+        }
 
 
-//         returnObj.status = 0;
-//         returnObj.data = results;
-//         response.status(200).json(returnObj)
-//     });
-// };
+        returnObj.status = 0;
+        returnObj.data = results;
+        response.status(200).json(returnObj)
+    });
+};
 
 
 const getAllCrimeTypes = async (request, response) => {
@@ -205,7 +212,7 @@ module.exports = {
     reportCrime,
     editCrime,
     getAllCrimes,
-    //searchCrime,
+    searchCrime,
     getAllCrimeTypes,
     sendLatLong,
     login,
