@@ -139,7 +139,7 @@ const sendLatLong = async (request, response) => {
     var longitude = request.body.longitude;
     var id = request.body.id;
 
-    var sql = "UPDATE crimes SET latitude="+latitude+", longitude="+longitude+" WHERE id="+id;
+    var sql = "UPDATE users SET latitude="+latitude+", longitude="+longitude+" WHERE id="+id;
     
     conn.query(sql, function (error, results) {
         if (error) {
