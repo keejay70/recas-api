@@ -28,7 +28,7 @@ app.post('/editCrime', api.editCrime);
 
 app.get('/getAllCrimes', api.getAllCrimes);
 
-app.get('/searchCrime', api.searchCrime);
+app.post('/searchCrime', api.searchCrime);
 
 app.get('/getAllCrimeTypes', api.getAllCrimeTypes);
 

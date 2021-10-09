@@ -19,7 +19,7 @@ const reportCrime = async (request, response) => {
     var reporter_address = request.body.reporter_address;
     var latitude = request.body.latitude;
     var longitude = request.body.longitude;
-    var statuss = "ongoing"
+    var statuss = "ongoing";
     var user_id = request.body.user_id;
 
 
@@ -27,10 +27,10 @@ const reportCrime = async (request, response) => {
     
     conn.query(sql, function (error, results) {
         if (error) {
-            return response.status(500).json("error adding crime")
+            return response.status(500).json("error adding crime");
         }
 
-        response.status(200).json("Crime reported")
+        response.status(200).json("Crime reported");
     });
 };
 
@@ -44,7 +44,7 @@ const editCrime = async (request, response) => {
     var reporter_address = request.body.reporter_address;
     var latitude = request.body.latitude;
     var longitude = request.body.longitude;
-    var statuss = "ongoing"
+    var statuss = "ongoing";
     var user_id = request.body.user_id;
 
 
