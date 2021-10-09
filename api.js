@@ -1,4 +1,14 @@
 const mysql = require('mysql');
+const Pusher = require("pusher");
+
+const pusher = new Pusher({
+    appId: "1279671",
+    key: "cb4b3192ce43653d8642",
+    secret: "088bb54113a2fb73c137",
+    cluster: "ap1",
+    useTLS: true
+});
+
 require('dotenv').config();
 
 // var conn = mysql.createConnection({
@@ -212,6 +222,18 @@ const login = async (request, response) => {
         response.status(200).json(returnObj)
     });
 };
+  
+const getUnitLocation = (req) => {
+    var lat = req.body.lat;
+    var long = req.body.long;
+    var accuracy = req.body.accuracy;
+    pusher.trigger("my-channel", "my-event", {
+        message: "success",
+        lat : lat,
+        long : long,
+        accuracy : accuracy
+      });
+}
 
 
 
@@ -225,5 +247,6 @@ module.exports = {
     getAllCrimeTypes,
     sendLatLong,
     login,
-    register
+    register,
+    getUnitLocation
 };
