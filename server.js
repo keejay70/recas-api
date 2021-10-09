@@ -39,7 +39,7 @@ app.post('/register', api.register);
 
 app.post('/login', api.login);
 
-app.post('/getUnitLocation', api.pusherFunc);
+app.post('/getUnitLocation', api.getUnitLocation);
 
 app.listen(port, () => {
   console.log(`listening on port: `+port);
