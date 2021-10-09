@@ -32,6 +32,8 @@ app.get('/searchCrime', api.searchCrime);
 
 app.get('/getAllCrimeTypes', api.getAllCrimeTypes);
 
+app.get('/sendLatLong', api.sendLatLong);
+
 app.listen(port, () => {
   console.log(`listening on port: `+port);
 });

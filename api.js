@@ -155,6 +155,7 @@ module.exports = {
     editCrime,
     getAllCrimes,
     searchCrime,
-    getAllCrimeTypes
+    getAllCrimeTypes,
+    sendLatLong
     
 };
