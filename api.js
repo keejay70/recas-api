@@ -41,7 +41,8 @@ const reportCrime = async (request, response) => {
     var statuss = "ongoing";
     var user_id = request.body.user_id;
 
-
+    console.log(datetime)
+    console.log(crimeType_id)
     var sql = "INSERT INTO crimes VALUES ('','"+report_details+"','"+crimeType_id+"','"+datetime+"','"+reporter_name+"','"+reporter_contact+"','"+reporter_address+"','"+latitude+"','"+longitude+"','"+statuss+"','"+user_id+"')"
     
     conn.query(sql, function (error, results) {
@@ -58,6 +59,7 @@ const getCrimeType = async (request, response) => {
         status:1,
         data:""
     }
+    console.log("asdasd")
 
     var sql = "SELECT id FROM crimetype WHERE type='"+request.body.crime_type+"' AND against='"+request.body.crime_on+"' LIMIT 1";
     conn.query(sql, function (error, results) {

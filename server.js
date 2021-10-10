@@ -33,7 +33,7 @@ app.post('/searchCrime', api.searchCrime);
 
 app.get('/getAllCrimeTypes', api.getAllCrimeTypes);
 
-app.get('/getCrimeType', api.getCrimeType);
+app.post('/getCrimeType', api.getCrimeType);
 
 app.post('/sendLatLong', api.sendLatLong);
 
