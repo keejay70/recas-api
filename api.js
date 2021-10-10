@@ -59,7 +59,7 @@ const getCrimeType = async (request, response) => {
         data:""
     }
 
-    var sql = "SELECT id WHERE type='"+request.body.fhuman+"' AND against='"+request.body.prop+"' LIMIT 1";
+    var sql = "SELECT id FROM crimetype WHERE type='"+request.body.fhuman+"' AND against='"+request.body.prop+"' LIMIT 1";
     conn.query(sql, function (error, results) {
         if (error) {
             returnObj.data = error
