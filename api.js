@@ -59,7 +59,7 @@ const getCrimeType = async (request, response) => {
         status:1,
         data:""
     }
-    console.log("asdasd")
+    console.log(request.body.crime_type +"----"+request.body.crime_on)
 
     var sql = "SELECT id FROM crimetype WHERE type='"+request.body.crime_type+"' AND against='"+request.body.crime_on+"' LIMIT 1";
     conn.query(sql, function (error, results) {
