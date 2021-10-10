@@ -52,7 +52,7 @@ const reportCrime = async (request, response) => {
     console.log(longitude)
     console.log(statuss)
     console.log(user_id)
-    var sql = "INSERT INTO crimes VALUES ('','"+report_details+"',"+crimeType_id+","+datetime+",'"+reporter_name+"','"+reporter_contact+"','"+reporter_address+"','"+latitude+"','"+longitude+"','"+statuss+"',"+user_id+")"
+    var sql = "INSERT INTO crimes VALUES (NULL,'"+report_details+"',"+crimeType_id+","+datetime+",'"+reporter_name+"','"+reporter_contact+"','"+reporter_address+"','"+latitude+"','"+longitude+"','"+statuss+"',"+user_id+")"
     
     conn.query(sql, function (error, results) {
         if (error) {
