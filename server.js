@@ -4,7 +4,10 @@ const app = express();
 const cors = require('cors');
 const api = require('./api');
 // const pusher = require('./pusher');
+<<<<<<< HEAD
 
+=======
+>>>>>>> d8da9382cf098a47b38e9566c55f0c3dc28eb33c
 const port = process.env.PORT || 3000;
 // enabling CORS to accept from all origins
 app.use(cors());
@@ -33,6 +36,8 @@ app.get('/getAllCrimes', api.getAllCrimes);
 app.post('/searchCrime', api.searchCrime);
 
 app.get('/getAllCrimeTypes', api.getAllCrimeTypes);
+
+app.post('/getCrimeType', api.getCrimeType);
 
 app.post('/sendLatLong', api.sendLatLong);
 

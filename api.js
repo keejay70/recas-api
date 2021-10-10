@@ -1,5 +1,7 @@
 const mysql = require('mysql');
 const Pusher = require("pusher");
+var moment = require('moment');
+
 
 const pusher = new Pusher({
     appId: "1279671",
@@ -30,26 +32,47 @@ conn.connect();
 const reportCrime = async (request, response) => {
     var report_details = request.body.report_details;
     var crimeType_id = request.body.crimeType_id;
-    var datetime = new Date();
+    //var datetime = moment().format('yyyy-mm-dd:hh:mm:ss');
+    var datetime = "2021-10-31 13:08:00";
     var reporter_name = request.body.reporter_name;
     var reporter_contact = request.body.reporter_contact;
     var reporter_address = request.body.reporter_address;
     var latitude = request.body.latitude;
     var longitude = request.body.longitude;
     var statuss = "ongoing";
-    var user_id = request.body.user_id;
+    //var user_id = request.body.user_id;
+    var user_id = 1;
 
-
-    var sql = "INSERT INTO crimes VALUES ('','"+report_details+"','"+crimeType_id+"','"+datetime+"','"+reporter_name+"','"+reporter_contact+"','"+reporter_address+"','"+latitude+"','"+longitude+"','"+statuss+"','"+user_id+"')"
+    var sql = "INSERT INTO crimes VALUES (NULL,'"+report_details+"','"+crimeType_id+"','"+datetime+"','"+reporter_name+"','"+reporter_contact+"','"+reporter_address+"','"+latitude+"','"+longitude+"','"+statuss+"','"+user_id+"')"
     
     conn.query(sql, function (error, results) {
         if (error) {
-            return response.status(500).json("error adding crime");
+            return response.status(500).json(error);
         }
 
         response.status(200).json("Crime reported");
     });
 };
+
+const getCrimeType = async (request, response) => {
+    var returnObj = {
+        status:1,
+        data:""
+    }
+    console.log(request.body.crime_type +"----"+request.body.crime_on)
+
+    var sql = "SELECT id FROM crimetype WHERE type='"+request.body.crime_type+"' LIMIT 1";
+    conn.query(sql, function (error, results) {
+        if (error) {
+            returnObj.data = error
+            return response.status(500).json(returnObj);
+        }
+        returnObj.status = 0;
+        returnObj.data = results;
+        response.status(200).json(returnObj);
+    });
+};
+
 
 const editCrime = async (request, response) => {
 
@@ -78,7 +101,7 @@ const editCrime = async (request, response) => {
 
 const getAllCrimes = async (request, response) => {
 
-    var sql = "SELECT * FROM crimes";
+    var sql = "SELECT * FROM crimes JOIN crimetype ON crimes.crimeType_id = crimetype.id";
 
     var returnObj = {
         status:1,
@@ -223,7 +246,7 @@ const login = async (request, response) => {
     });
 };
   
-const getUnitLocation = (req) => {
+const getUnitLocation = (req,res) => {
     var lat = req.body.lat;
     var long = req.body.long;
     var accuracy = req.body.accuracy;
@@ -248,5 +271,6 @@ module.exports = {
     sendLatLong,
     login,
     register,
-    getUnitLocation
+    getUnitLocation,
+    getCrimeType
 };
