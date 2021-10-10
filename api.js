@@ -269,5 +269,6 @@ module.exports = {
     sendLatLong,
     login,
     register,
-    getUnitLocation
+    getUnitLocation,
+    getCrimeType
 };
