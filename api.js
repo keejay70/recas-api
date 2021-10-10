@@ -32,7 +32,8 @@ conn.connect();
 const reportCrime = async (request, response) => {
     var report_details = request.body.report_details;
     var crimeType_id = request.body.crimeType_id;
-    var datetime = moment().format('yyyy-mm-dd:hh:mm:ss');
+    //var datetime = moment().format('yyyy-mm-dd:hh:mm:ss');
+    var datetime = new Date();
     var reporter_name = request.body.reporter_name;
     var reporter_contact = request.body.reporter_contact;
     var reporter_address = request.body.reporter_address;
