@@ -33,7 +33,7 @@ const reportCrime = async (request, response) => {
     var report_details = request.body.report_details;
     var crimeType_id = request.body.crimeType_id;
     //var datetime = moment().format('yyyy-mm-dd:hh:mm:ss');
-    var datetime = new Date();
+    var datetime = "2021-10-31 13:08:00";
     var reporter_name = request.body.reporter_name;
     var reporter_contact = request.body.reporter_contact;
     var reporter_address = request.body.reporter_address;
@@ -45,7 +45,7 @@ const reportCrime = async (request, response) => {
 
     console.log(datetime)
     console.log(crimeType_id)
-    var sql = "INSERT INTO crimes VALUES ('','"+report_details+"',"+crimeType_id+",'"+datetime+"','"+reporter_name+"','"+reporter_contact+"','"+reporter_address+"',"+latitude+","+longitude+",'"+statuss+"',"+user_id+")"
+    var sql = "INSERT INTO crimes VALUES ('','"+report_details+"',"+crimeType_id+","+datetime+",'"+reporter_name+"','"+reporter_contact+"','"+reporter_address+"',"+latitude+","+longitude+",'"+statuss+"',"+user_id+")"
     
     conn.query(sql, function (error, results) {
         if (error) {
