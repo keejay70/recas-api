@@ -42,21 +42,12 @@ const reportCrime = async (request, response) => {
     var statuss = "ongoing";
     //var user_id = request.body.user_id;
     var user_id = 1;
-    console.log(report_details)
-    console.log(crimeType_id)
-    console.log(datetime)
-    console.log(reporter_name)
-    console.log(reporter_contact)
-    console.log(reporter_address)
-    console.log(latitude)
-    console.log(longitude)
-    console.log(statuss)
-    console.log(user_id)
-    var sql = "INSERT INTO crimes VALUES (NULL,'"+report_details+"',"+crimeType_id+","+datetime+",'"+reporter_name+"','"+reporter_contact+"','"+reporter_address+"','"+latitude+"','"+longitude+"','"+statuss+"',"+user_id+")"
+
+    var sql = "INSERT INTO crimes VALUES (NULL,'"+report_details+"','"+crimeType_id+"','"+datetime+"','"+reporter_name+"','"+reporter_contact+"','"+reporter_address+"','"+latitude+"','"+longitude+"','"+statuss+"','"+user_id+"')"
     
     conn.query(sql, function (error, results) {
         if (error) {
-            return response.status(500).json("error adding crime");
+            return response.status(500).json(error);
         }
 
         response.status(200).json("Crime reported");
