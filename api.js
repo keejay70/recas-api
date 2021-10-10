@@ -1,5 +1,7 @@
 const mysql = require('mysql');
 const Pusher = require("pusher");
+var moment = require('moment');
+
 
 const pusher = new Pusher({
     appId: "1279671",
@@ -30,7 +32,7 @@ conn.connect();
 const reportCrime = async (request, response) => {
     var report_details = request.body.report_details;
     var crimeType_id = request.body.crimeType_id;
-    var datetime = new Date();
+    var datetime = moment().format('yyyy-mm-dd:hh:mm:ss');;
     var reporter_name = request.body.reporter_name;
     var reporter_contact = request.body.reporter_contact;
     var reporter_address = request.body.reporter_address;
@@ -50,6 +52,18 @@ const reportCrime = async (request, response) => {
         response.status(200).json("Crime reported");
     });
 };
+
+const getCrimeType = async (request, response) => {
+    var sql = "SELECT id WHERE type='"+req.body.fhuman+"' AND against='"+req.body.prop+"' LIMIT 1";
+    conn.query(sql, function (error, results) {
+        if (error) {
+            return response.status(500).json("error adding crime");
+        }
+
+        response.status(200).json(results);
+    });
+};
+
 
 const editCrime = async (request, response) => {
 
