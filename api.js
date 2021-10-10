@@ -54,13 +54,20 @@ const reportCrime = async (request, response) => {
 };
 
 const getCrimeType = async (request, response) => {
+    var returnObj = {
+        status:1,
+        data:""
+    }
+
     var sql = "SELECT id WHERE type='"+req.body.fhuman+"' AND against='"+req.body.prop+"' LIMIT 1";
     conn.query(sql, function (error, results) {
         if (error) {
-            return response.status(500).json("error adding crime");
+            returnObj.data = error
+            return response.status(500).json(returnObj);
         }
-
-        response.status(200).json(results);
+        returnObj.status = 0;
+        returnObj.data = results;
+        response.status(200).json(returnObj);
     });
 };
 
