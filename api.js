@@ -121,51 +121,26 @@ const getAllCrimes = async (request, response) => {
     });
 };
 
+
 const searchCrime = async (request, response) => {
-    
-    //var report_details = request.body.report_details;
-    var choice = null
-    var crimecase = null
-    var statuss = null
-    var searchbarangay = null
-    var contact = null
 
-    if(request.body.choice != "") choice = request.body.choice
-    if(request.body.crimecase != "") crimecase = request.body.crimecase
-    if(request.body.status != "") statuss = request.body.status
-    if(request.body.searchbarangay != "") searchbarangay = request.body.searchbarangay
-    if(request.body.contact != "") contact = request.body.contact
-
+    var choice = request.body.choice;
+    var crimecase = request.body.crimecase;
+    var status = request.body.status;
+    var searchbrgy = request.body.searchbarangay;
+    var contact = request.body.contact;
     var from = request.body.from;
     var to = request.body.to;
 
-    console.log(choice+"-");
-    console.log(crimecase+"-");
-    console.log(statuss+"-");
-    console.log(searchbarangay+"-");
-    console.log(contact+"-");
-    console.log(from+"-");
-    console.log(to+"-");
-    
+    console.log(request.body);
+    var sql = "SELECT * FROM crimes JOIN crimetype ON crimes.crimeType_id=crimetype.id WHERE crimetype.against='"+choice+"' OR crimetype.id='"+crimecase+"' OR status='"+status+"' OR barangay='"+searchbrgy+"' OR  reporter_contact='"+contact+"' OR date BETWEEN '"+from+"' AND '"+to+"'";
+
+    console.log(sql)
 
     var returnObj = {
         status:1,
         data:""
     }
-
-    var ctype;
-
-    if(choice == '0' ){
-        ctype = "Human";
-    }else{
-        ctype = "Property";
-    }
-
-    var sql = "SELECT * FROM crimes JOIN crimetype ON crimes.crimeType_id=crimetype.id WHERE ((ISNULL("+ctype+") OR crimetype.against='"+ctype+"') AND (ISNULL("+crimecase+") OR crimetype.id='"+crimecase+"') AND (ISNULL("+statuss+")OR status='"+statuss+"') AND (ISNULL("+searchbarangay+") OR barangay='"+searchbarangay+"') AND (ISNULL("+contact+") is null OR reporter_contact='"+contact+"') AND date BETWEEN "+from+" AND "+to;
-
-    // var sql = "SELECT * FROM crimes JOIN crimetype ON crimes.crimeType_id=crimetype.id WHERE ( crimetype.against='"+ctype+"' OR "+ctype+" is null) AND (crimetype.id='"+crimecase+"' OR "+crimecase+" is null) AND (status='"+statuss+"' OR "+statuss+" is null) AND (barangay='"+searchbarangay+"' OR "+searchbarangay+" is null) AND (reporter_contact='"+contact+"' OR '"+contact+"' is null) AND date BETWEEN "+from+" AND "+to;
-
-    console.log(sql)
 
     conn.query(sql, function (error, results) {
         if (error){
