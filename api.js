@@ -132,6 +132,15 @@ const searchCrime = async (request, response) => {
     var from = request.body.from;
     var to = request.body.to;
 
+    console.log(choice+"-");
+    console.log(crimecase+"-");
+    console.log(statuss+"-");
+    console.log(searchbarangay+"-");
+    console.log(contact+"-");
+    console.log(from+"-");
+    console.log(to+"-");
+    
+
     var returnObj = {
         status:1,
         data:""
