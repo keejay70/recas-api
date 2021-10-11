@@ -138,27 +138,68 @@ const searchCrime = async (request, response) => {
     var contact = null
     var from = request.body.from;
     var to = request.body.to;
+    var ctype = null;
 
-    if(request.body.choice != "") choice = "'"+request.body.choice+"'"
-    if(request.body.crimecase != "") crimecase = "'"+request.body.crimecase+"'"
-    if(request.body.status != "") statuss = "'"+request.body.status+"'"
-    if(request.body.searchbarangay != "") searchbarangay = "'"+request.body.searchbarangay+"'"
-    if(request.body.contact != "") contact = "'"+request.body.contact+"'"
-    
+    var part1=""
+    var part2=""
+    var part3=""
+    var part4=""
+    var part5=""
 
-    // console.log(request.body);
-    // var sql = "SELECT * FROM crimes JOIN crimetype ON crimes.crimeType_id=crimetype.id WHERE crimetype.against='"+choice+"' OR crimetype.id='"+crimecase+"' OR status='"+status+"' OR barangay='"+searchbrgy+"' OR  reporter_contact='"+contact+"' OR date BETWEEN '"+from+"' AND '"+to+"'";
-
-     var ctype;
-
-    if(choice == '0' ){
+    if(request.body.choice == '0' ){
         ctype = "Persons";
     }else{
         ctype = "Property";
     }
 
+    if(request.body.choice != ""){
+        
+        part1 = "('"+ctype+"' IS NULL OR crimetype.against='"+ctype+"')"
+    }else{
+        part1 = "("+ctype+" IS NULL OR crimetype.against='"+ctype+"')"
+    }
 
-    var sql = "SELECT * FROM crimes JOIN crimetype ON crimes.crimeType_id=crimetype.id WHERE ("+ctype+" IS NULL OR crimetype.against='"+ctype+"') AND ("+crimecase+" IS NULL OR crimetype.id='"+crimecase+"') AND ("+statuss+" IS NULL OR status='"+statuss+"') AND ("+searchbarangay+" IS NULL OR barangay='"+searchbarangay+"') AND ("+contact+" IS NULL is null OR reporter_contact='"+contact+"') AND date BETWEEN "+from+" AND "+to;
+    if(request.body.crimecase != ""){
+        crimecase = request.body.crimecase
+        part2 = "('"+crimecase+"' IS NULL OR crimetype.id='"+crimecase+"')"
+    }else{
+        part2 = "("+crimecase+" IS NULL OR crimetype.id='"+crimecase+"')"
+    }
+
+    if(request.body.status != ""){
+        statuss = request.body.status
+        part3 = "('"+statuss+"' IS NULL OR status='"+statuss+"')"
+    }else{
+        part3 = "("+statuss+" IS NULL OR status='"+statuss+"')"
+    }
+
+    if(request.body.searchbarangay != ""){
+        searchbarangay = request.body.searchbarangay
+        part4 = "('"+searchbarangay+"' IS NULL OR barangay='"+searchbarangay+"')"
+    }else{
+        part4 = "("+searchbarangay+" IS NULL OR barangay='"+searchbarangay+"')"
+    }
+
+    if(request.body.contact != ""){
+        contact = request.body.contact
+        part5 = "('"+contact+"' IS NULL OR reporter_contact='"+contact+"')"
+    }else{
+        part5 = "("+contact+" IS NULL OR reporter_contact='"+contact+"')"
+    }
+
+    
+
+    // console.log(request.body);
+    // var sql = "SELECT * FROM crimes JOIN crimetype ON crimes.crimeType_id=crimetype.id WHERE crimetype.against='"+choice+"' OR crimetype.id='"+crimecase+"' OR status='"+status+"' OR barangay='"+searchbrgy+"' OR  reporter_contact='"+contact+"' OR date BETWEEN '"+from+"' AND '"+to+"'";
+
+     console.log(choice)
+     console.log(crimecase)
+     console.log(statuss)
+
+
+    // var sql = "SELECT * FROM crimes JOIN crimetype ON crimes.crimeType_id=crimetype.id WHERE ('"+ctype+"' IS NULL OR crimetype.against='"+ctype+"') AND ('"+crimecase+"' IS NULL OR crimetype.id='"+crimecase+"') AND ('"+statuss+"' IS NULL OR status='"+statuss+"') AND ('"+searchbarangay+"' IS NULL OR barangay='"+searchbarangay+"') AND ('"+contact+"' IS NULL is null OR reporter_contact='"+contact+"') AND date BETWEEN "+from+" AND "+to;
+
+    var sql = "SELECT * FROM crimes JOIN crimetype ON crimes.crimeType_id=crimetype.id WHERE "+part1+"AND"+part2+"AND"+part3+"AND"+part4+"AND"+part5+"AND (date BETWEEN '"+from+"' AND '"+to+"')";
 
 
     console.log(sql)
