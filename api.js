@@ -45,6 +45,15 @@ const reportCrime = async (request, response) => {
     var barangay = request.body.barangay;
 
     var sql = "INSERT INTO crimes VALUES (NULL,'"+report_details+"','"+crimeType_id+"','"+datetime+"','"+reporter_name+"','"+reporter_contact+"','"+reporter_address+"','"+latitude+"','"+longitude+"','"+statuss+"','"+user_id+"','"+barangay+"')"
+
+    pusher.trigger("crime", "get-crime", {
+        message: "success",
+        lat : latitude,
+        long : longitude,
+        details: report_details,
+        address : reporter_address,
+        status : statuss,
+      });
     
     conn.query(sql, function (error, results) {
         if (error) {
