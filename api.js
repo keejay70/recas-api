@@ -130,7 +130,7 @@ const searchCrime = async (request, response) => {
     var searchbarangay = null
     var contact = null
 
-    if(resuest.body.choice != "") choice = request.body.choice
+    if(request.body.choice != "") choice = request.body.choice
     if(request.body.crimecase != "") crimecase = request.body.crimecase
     if(request.body.status != "") statuss = request.body.status
     if(request.body.searchbarangay != "") searchbarangay = request.body.searchbarangay
