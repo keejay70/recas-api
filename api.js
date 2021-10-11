@@ -145,7 +145,7 @@ const searchCrime = async (request, response) => {
         ctype = "Property";
     }
 
-    var sql = "SELECT * FROM crimes JOIN crimetype ON crimes.crimeType_id=crimetype.id WHERE ("+ctype+" IS NULL OR crimetype.against='"+ctype+"') AND ("+crimecase+" IS NULL OR crimetype.id='"+crimecase+"') AND ("+statuss+" IS NULL OR status='"+statuss+"') AND ("+searchbarangay+" IS NULL OR barangay='"+searchbarangay+"') AND ("+contact+" IS NULL OR reporter_contact='"+contact+"') AND date BETWEEN "+from+" AND "+to;
+    var sql = "SELECT * FROM crimes JOIN crimetype ON crimes.crimeType_id=crimetype.id WHERE ('"+ctype+"' IS NULL OR crimetype.against='"+ctype+"') AND ("+crimecase+" IS NULL OR crimetype.id='"+crimecase+"') AND ("+statuss+" IS NULL OR status='"+statuss+"') AND ("+searchbarangay+" IS NULL OR barangay='"+searchbarangay+"') AND ("+contact+" IS NULL OR reporter_contact='"+contact+"') AND date BETWEEN "+from+" AND "+to;
 
     conn.query(sql, function (error, results) {
         if (error){
