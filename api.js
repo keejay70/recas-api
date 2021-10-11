@@ -78,7 +78,7 @@ const editCrime = async (request, response) => {
 
     var report_details = request.body.report_details;
     var crimeType_id = request.body.crimeType_id;
-    var datetime = new Date();
+    var datetime = new Date().getDate();
     var reporter_name = request.body.reporter_name;
     var reporter_contact = request.body.reporter_contact;
     var reporter_address = request.body.reporter_address;
