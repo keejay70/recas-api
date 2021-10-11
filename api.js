@@ -162,6 +162,7 @@ const searchCrime = async (request, response) => {
     }
 
     var sql = "SELECT * FROM crimes JOIN crimetype ON crimes.crimeType_id=crimetype.id WHERE (@"+ctype+" is null OR crimetype.against='"+ctype+"') AND (@"+crimecase+" is null OR crimetype.id='"+crimecase+"') AND (@"+statuss+" is null OR status='"+statuss+"') AND (@"+searchbarangay+" is null OR barangay='"+searchbarangay+"') AND (@'"+contact+"' is null OR reporter_contact='"+contact+"') AND date BETWEEN "+from+" AND "+to;
+    console.log(sql)
 
     conn.query(sql, function (error, results) {
         if (error){
