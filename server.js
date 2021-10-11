@@ -6,21 +6,16 @@ const api = require('./api');
 // const pusher = require('./pusher');
 const port = process.env.PORT || 3000;
 // enabling CORS to accept from all origins
-app.use(cors());
+//app.use(cors());
 // express.json() and express.urlencoded() are built-in middleware functions to support JSON-encoded and URL-encoded bodies.
 // to be able to get object data from the url
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// enabling CORS to accept from all origins
-// app.all('*', (req, res, next) => {
-//   console.log(`${new Date()} - request for ${req.path}`);
-//   res.set('Access-Control-Allow-Origin', '*');
-//   next();
-// });
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//enabling CORS to accept from all origins
+app.all('*', (req, res, next) => {
+  console.log(`${new Date()} - request for ${req.path}`);
+  res.set('Access-Control-Allow-Origin', '*');
   next();
 });
 
