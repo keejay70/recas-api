@@ -324,7 +324,7 @@ const getUnitLocation = (req,res) => {
     var long = req.body.long;
     var accuracy = req.body.accuracy;
     var id = req.body.userId;
-    pusher.trigger("my-channel", "my-event", {
+    pusher.trigger("units", "get-units", {
         message: "success",
         lat : lat,
         long : long,
