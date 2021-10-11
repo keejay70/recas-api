@@ -156,12 +156,12 @@ const searchCrime = async (request, response) => {
     var ctype;
 
     if(choice == '0' ){
-        ctype = "'Human'";
+        ctype = "Human";
     }else{
-        ctype = "'Property'";
+        ctype = "Property";
     }
 
-    var sql = "SELECT * FROM crimes JOIN crimetype ON crimes.crimeType_id=crimetype.id WHERE ("+ctype+" is null OR crimetype.against='"+ctype+"') AND ("+crimecase+" is null OR crimetype.id='"+crimecase+"') AND ("+statuss+" is null OR status='"+statuss+"') AND ("+searchbarangay+" is null OR barangay='"+searchbarangay+"') AND ('"+contact+"' is null OR reporter_contact='"+contact+"') AND date BETWEEN "+from+" AND "+to;
+    var sql = "SELECT * FROM crimes JOIN crimetype ON crimes.crimeType_id=crimetype.id WHERE (@"+ctype+" is null OR crimetype.against='"+ctype+"') AND (@"+crimecase+" is null OR crimetype.id='"+crimecase+"') AND (@"+statuss+" is null OR status='"+statuss+"') AND (@"+searchbarangay+" is null OR barangay='"+searchbarangay+"') AND (@'"+contact+"' is null OR reporter_contact='"+contact+"') AND date BETWEEN "+from+" AND "+to;
 
     conn.query(sql, function (error, results) {
         if (error){
