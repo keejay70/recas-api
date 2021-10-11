@@ -124,11 +124,18 @@ const getAllCrimes = async (request, response) => {
 const searchCrime = async (request, response) => {
     
     //var report_details = request.body.report_details;
-    var choice = request.body.choice;
-    var crimecase = request.body.crimecase;
-    var statuss = request.body.status;
-    var searchbarangay = request.body.searchbarangay;
-    var contact = request.body.contact;
+    var choice = null
+    var crimecase = null
+    var statuss = null
+    var searchbarangay = null
+    var contact = null
+
+    if(resuest.body.choice != "") choice = request.body.choice
+    if(request.body.crimecase != "") crimecase = request.body.crimecase
+    if(request.body.status != "") statuss = request.body.status
+    if(request.body.searchbarangay != "") searchbarangay = request.body.searchbarangay
+    if(request.body.contact != "") contact = request.body.contact
+
     var from = request.body.from;
     var to = request.body.to;
 
