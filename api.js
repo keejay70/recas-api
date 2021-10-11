@@ -133,7 +133,7 @@ const searchCrime = async (request, response) => {
     var to = request.body.to;
 
     console.log(request.body);
-    var sql = "SELECT * FROM crimes JOIN crimetype ON crimes.crimeType_id=crimetype.id WHERE crimetype.against='"+choice+"' OR crimetype.id='"+crimecase+"' OR status='"+status+"' OR barangay='"+searchbrgy+"' OR  reporter_contact='"+contact+"' OR date BETWEEN '"+from+"' AND '"+to+"'";
+    var sql = "SELECT * FROM crimes JOIN crimetype ON crimes.crimeType_id=crimetype.id WHERE crimetype.against='"+choice+"' AND crimetype.id='"+crimecase+"' AND status='"+status+"' AND barangay='"+searchbrgy+"' AND  reporter_contact='"+contact+"' OR date BETWEEN '"+from+"' AND '"+to+"'";
 
     console.log(sql)
 
@@ -256,11 +256,13 @@ const getUnitLocation = (req,res) => {
     var lat = req.body.lat;
     var long = req.body.long;
     var accuracy = req.body.accuracy;
+    var id = req.body.userId;
     pusher.trigger("my-channel", "my-event", {
         message: "success",
         lat : lat,
         long : long,
-        accuracy : accuracy
+        accuracy : accuracy,
+        id : id
       });
 }
 
