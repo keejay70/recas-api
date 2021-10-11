@@ -13,11 +13,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // enabling CORS to accept from all origins
-app.all('*', (req, res, next) => {
-  console.log(`${new Date()} - request for ${req.path}`);
-  res.set('Access-Control-Allow-Origin', '*');
-  next();
-});
+// app.all('*', (req, res, next) => {
+//   console.log(`${new Date()} - request for ${req.path}`);
+//   res.set('Access-Control-Allow-Origin', '*');
+//   next();
+// });
 
 app.get('/', (req, res) => {
   res.send('welcome to the recas-api endpoint.');
