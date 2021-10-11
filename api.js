@@ -42,8 +42,9 @@ const reportCrime = async (request, response) => {
     var statuss = "ongoing";
     //var user_id = request.body.user_id;
     var user_id = 1;
+    var barangay = request.body.barangay;
 
-    var sql = "INSERT INTO crimes VALUES (NULL,'"+report_details+"','"+crimeType_id+"','"+datetime+"','"+reporter_name+"','"+reporter_contact+"','"+reporter_address+"','"+latitude+"','"+longitude+"','"+statuss+"','"+user_id+"')"
+    var sql = "INSERT INTO crimes VALUES (NULL,'"+report_details+"','"+crimeType_id+"','"+datetime+"','"+reporter_name+"','"+reporter_contact+"','"+reporter_address+"','"+latitude+"','"+longitude+"','"+statuss+"','"+user_id+"','"+barangay+"')"
     
     conn.query(sql, function (error, results) {
         if (error) {
@@ -59,7 +60,6 @@ const getCrimeType = async (request, response) => {
         status:1,
         data:""
     }
-    console.log(request.body.crime_type +"----"+request.body.crime_on)
 
     var sql = "SELECT id FROM crimetype WHERE type='"+request.body.crime_type+"' LIMIT 1";
     conn.query(sql, function (error, results) {
@@ -73,7 +73,7 @@ const getCrimeType = async (request, response) => {
     });
 };
 
-
+//not updated or used
 const editCrime = async (request, response) => {
 
     var report_details = request.body.report_details;
@@ -123,18 +123,29 @@ const getAllCrimes = async (request, response) => {
 
 const searchCrime = async (request, response) => {
     
-    var report_details = request.body.report_details;
-    var crimeType_id = request.body.crimeType_id;
-    var reporter_contact = request.body.reporter_contact;
+    //var report_details = request.body.report_details;
+    var choice = request.body.choice;
+    var crimecase = request.body.crimecase;
     var statuss = request.body.status;
-    var date = request.body.status;
+    var searchbarangay = request.body.searchbarangay;
+    var contact = request.body.contact;
+    var from = request.body.from;
+    var to = request.body.to;
 
     var returnObj = {
         status:1,
         data:""
     }
 
-    var sql = "SELECT * FROM crimes WHERE ("+report_details+" IS NULL OR report_details="+report_details+") AND ("+crimeType_id+" IS NULL OR crimeType_id="+crimeType_id+") AND ("+reporter_contact+" IS NULL OR reporter_contact="+reporter_contact+") AND ("+statuss+" IS NULL OR statuss="+statuss+")";
+    var ctype;
+
+    if(choice == '0' ){
+        ctype = "Human";
+    }else{
+        ctype = "Property";
+    }
+
+    var sql = "SELECT * FROM crimes JOIN crimetype ON crimes.crimeType_id=crimetype.id WHERE ("+ctype+" IS NULL OR type="+ctype+") AND ("+crimecase+" IS NULL OR crimetype.id="+crimecase+") AND ("+statuss+" IS NULL OR status="+statuss+") AND ("+searchbarangay+" IS NULL OR barangay="+searchbarangay+") AND (date BETWEEN "+from+" AND "+to+") AND ("+contact+" IS NULL OR reporter_contact="+contact+")";
 
     conn.query(sql, function (error, results) {
         if (error){
