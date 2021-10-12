@@ -66,6 +66,8 @@ app.post('/login', api.login);
 
 app.post('/getUnitLocation', api.getUnitLocation);
 
+app.post('/getOneCrime', api.getOneCrime);
+
 app.listen(port, () => {
   console.log(`listening on port: `+port);
 });

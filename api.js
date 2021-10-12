@@ -122,6 +122,7 @@ const getAllCrimes = async (request, response) => {
 };
 
 
+
 const searchCrime = async (request, response) => {
 
     // var choice = request.body.choice;
@@ -246,6 +247,29 @@ const getAllCrimeTypes = async (request, response) => {
     });
 };
 
+const getOneCrime = async (request, response) => {
+    
+    var id = req.body.id;
+
+    var sql = "SELECT * from crimes JOIN crimetype ON crimes.crimeType_id = crimetype.id WHERE crimes.id="+id;
+
+    var returnObj = {
+        status:1,
+        data:""
+    }
+
+    conn.query(sql, function (error, results) {
+        if (error){
+            returnObj.data = error;
+            return response.status(500).json(returnObj)
+        }
+
+        returnObj.status = 0;
+        returnObj.data = results;
+        response.status(200).json(returnObj)
+    });
+};
+
 
 const sendLatLong = async (request, response) => {
 
@@ -348,5 +372,6 @@ module.exports = {
     login,
     register,
     getUnitLocation,
-    getCrimeType
+    getCrimeType,
+    getOneCrime
 };
