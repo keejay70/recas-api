@@ -249,7 +249,7 @@ const getAllCrimeTypes = async (request, response) => {
 
 const getOneCrime = async (request, response) => {
     
-    var id = req.body.id;
+    var id = request.body.id;
 
     var sql = "SELECT * from crimes JOIN crimetype ON crimes.crimeType_id = crimetype.id WHERE crimes.id="+id;
 
