@@ -189,29 +189,21 @@ const searchCrime = async (request, response) => {
     }
 
     if(request.body.from == "" && request.body.to != "" ){
-        part6 = "AND (date<"+to+")";
+        part6 = " AND (date<"+to+")";
     }else if(request.body.from != "" && request.body.to == "" ){
         var currDate = new Date();
         let date = ("0" + currDate.getDate()).slice(-2);
 
-        part6 = "AND (date BETWEEN '"+from+"' AND '"+date+"')";
+        part6 = " AND (date BETWEEN '"+from+"' AND '"+date+"')";
     }else if(request.body.from == "" && request.body.to == "" ){
         part6 = ""
     }
-
-    
-
-    // console.log(request.body);
-    // var sql = "SELECT * FROM crimes JOIN crimetype ON crimes.crimeType_id=crimetype.id WHERE crimetype.against='"+choice+"' OR crimetype.id='"+crimecase+"' OR status='"+status+"' OR barangay='"+searchbrgy+"' OR  reporter_contact='"+contact+"' OR date BETWEEN '"+from+"' AND '"+to+"'";
 
      console.log(choice)
      console.log(crimecase)
      console.log(statuss)
 
-
-    // var sql = "SELECT * FROM crimes JOIN crimetype ON crimes.crimeType_id=crimetype.id WHERE ('"+ctype+"' IS NULL OR crimetype.against='"+ctype+"') AND ('"+crimecase+"' IS NULL OR crimetype.id='"+crimecase+"') AND ('"+statuss+"' IS NULL OR status='"+statuss+"') AND ('"+searchbarangay+"' IS NULL OR barangay='"+searchbarangay+"') AND ('"+contact+"' IS NULL is null OR reporter_contact='"+contact+"') AND date BETWEEN "+from+" AND "+to;
-
-    var sql = "SELECT * FROM crimes JOIN crimetype ON crimes.crimeType_id=crimetype.id WHERE "+part1+"AND"+part2+"AND"+part3+"AND"+part4+"AND"+part5+"AND (date BETWEEN '"+from+"' AND '"+to+"')"+part6;
+    var sql = "SELECT * FROM crimes JOIN crimetype ON crimes.crimeType_id=crimetype.id WHERE "+part1+"AND"+part2+"AND"+part3+"AND"+part4+"AND"+part5+part6;
 
 
     console.log(sql)
