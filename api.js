@@ -252,7 +252,7 @@ const getOneCrime = async (request, response) => {
     var id = request.body.id;
     console.log(id)
 
-    var sql = "SELECT * from crimes JOIN crimetype ON crimes.crimeType_id = crimetype.id WHERE crimes.id="+id;
+    var sql = "SELECT * from crimes JOIN crimetype ON crimes.crimeType_id = crimetype.id WHERE crimes.id="+integer(id);
 
     var returnObj = {
         status:1,
@@ -267,6 +267,7 @@ const getOneCrime = async (request, response) => {
 
         returnObj.status = 0;
         returnObj.data = results;
+        console.log(returnObj)
         response.status(200).json(returnObj)
     });
 };
