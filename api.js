@@ -101,7 +101,7 @@ const editCrime = async (request, response) => {
 
 const getAllCrimes = async (request, response) => {
 
-    var sql = "SELECT * FROM crimes JOIN crimetype ON crimes.crimeType_id = crimetype.id";
+    var sql = "SELECT * FROM crimes JOIN crimetype ON crimes.crimeType_id = crimetype.id ORDER BY crimes DESC";
 
     var returnObj = {
         status:1,
