@@ -424,7 +424,7 @@ const editDispatch = async (request, response) => {
     var date = request.body.date;
     var details = request.body.details;
     
-    var sql = "UPDATE dispatch SET unit_no='"+unit+"', details="+details+", date='"+date+"', longitude='"+long+"', latitude='"+lat+"' WHERE id="+disp_id;
+    var sql = "UPDATE dispatch SET unit_no='"+unit+"', details='"+details+"', date='"+date+"', longitude='"+long+"', latitude='"+lat+"' WHERE dispatch_id="+disp_id;
     
     conn.query(sql, function (error, results) {
         if (error) {
