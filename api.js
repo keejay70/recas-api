@@ -149,13 +149,13 @@ const searchCrime = async (request, response) => {
     var part6=""
 
     if(request.body.choice == ''){
-        part0 = "("+choice+" IS NULL OR crimetype.against='"+choice+"')";
+        part1 = "("+choice+" IS NULL OR crimetype.against='"+choice+"')";
     }else if(request.body.choice == '0' ){
         choice = "Persons";
-        part0 = "('"+choice+"' IS NULL OR crimetype.against='"+choice+"')";
+        part1 = "('"+choice+"' IS NULL OR crimetype.against='"+choice+"')";
     }else{
         choice = "Property";
-        part0 = "('"+choice+"' IS NULL OR crimetype.against='"+choice+"')";
+        part1 = "('"+choice+"' IS NULL OR crimetype.against='"+choice+"')";
     }
 
     if(request.body.crimecase != ""){
@@ -201,7 +201,7 @@ const searchCrime = async (request, response) => {
      console.log(crimecase)
      console.log(statuss)
 
-    var sql = "SELECT * FROM crimes JOIN crimetype ON crimes.crimeType_id=crimetype.id WHERE "+part0+" AND "+part1+"AND"+part2+"AND"+part3+"AND"+part4+"AND"+part5+part6;
+    var sql = "SELECT * FROM crimes JOIN crimetype ON crimes.crimeType_id=crimetype.id WHERE "+part1+"AND"+part2+"AND"+part3+"AND"+part4+"AND"+part5+part6;
 
 
     console.log(sql)
