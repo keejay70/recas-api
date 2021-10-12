@@ -140,17 +140,22 @@ const searchCrime = async (request, response) => {
     var to = request.body.to;
     var ctype = null;
 
+    var part0=""
     var part1=""
     var part2=""
     var part3=""
     var part4=""
     var part5=""
-    var part6 = ""
-
-    if(request.body.choice == '0' ){
-        ctype = "Persons";
+    var part6=""
+    
+    if(request.body.choice == ''){
+        part0 = "("+choice+" IS NULL OR crimetype.against='"+choice+"')";
+    }else if(request.body.choice == '0' ){
+        choice = "Persons";
+        part0 = "('"+choice+"' IS NULL OR crimetype.against='"+choice+"')";
     }else{
-        ctype = "Property";
+        choice = "Property";
+        part0 = "('"+choice+"' IS NULL OR crimetype.against='"+choice+"')";
     }
 
     if(request.body.choice != ""){
