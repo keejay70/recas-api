@@ -68,6 +68,14 @@ app.post('/getUnitLocation', api.getUnitLocation);
 
 app.post('/getOneCrime', api.getOneCrime);
 
+app.post('/addDispatch', api.addDispatch);
+
+app.get('/showDispatch', api.showDispatch);
+
+app.post('/editDispatch', api.editDispatch);
+
+app.post('/getDispatch', api.getDispatch);
+
 app.listen(port, () => {
   console.log(`listening on port: `+port);
 });

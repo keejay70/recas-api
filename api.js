@@ -369,6 +369,91 @@ const getUnitLocation = (req,res) => {
       });
 }
 
+const showDispatch = async (request, response) => {
+    
+    var sql = "SELECT * from dispatch";
+
+    var returnObj = {
+        status:1,
+        data:""
+    }
+
+    conn.query(sql, function (error, results) {
+        if (error){
+            returnObj.data = error;
+            return response.status(500).json(returnObj)
+        }
+
+
+        returnObj.status = 0;
+        returnObj.data = results;
+        response.status(200).json(returnObj)
+    });
+};
+
+const getDispatch = async (request, response) => {
+
+    var disp_id = request.body.disp_id;
+    
+    var sql = "SELECT * from dispatch WHERE dispatch_id ="+disp_id;
+
+    var returnObj = {
+        status:1,
+        data:""
+    }
+
+    conn.query(sql, function (error, results) {
+        if (error){
+            returnObj.data = error;
+            return response.status(500).json(returnObj)
+        }
+
+
+        returnObj.status = 0;
+        returnObj.data = results;
+        response.status(200).json(returnObj)
+    });
+};
+
+const editDispatch = async (request, response) => {
+
+    var disp_id = request.body.disp_id;
+    var long = request.body.longitude;
+    var lat = request.body.latitude;
+    var unit = request.body.unit_no;
+    var date = request.body.date;
+    var details = request.body.details;
+    
+    var sql = "UPDATE dispatch SET unit_no='"+unit+"', details="+details+", date='"+date+"', longitude='"+long+"', latitude='"+lat+"' WHERE id="+disp_id;
+    
+    conn.query(sql, function (error, results) {
+        if (error) {
+            return response.status(500).json("error updating crime")
+        }
+
+        response.status(200).json("Crime report updated")
+    });
+};
+
+const addDispatch = async (request, response) => {
+    var details = request.body.details;
+    var unit_no = request.body.unit_no;
+    var date = request.body.date;
+    var lat = request.body.latitude;
+    var long = request.body.longitude;
+
+    var sql = "INSERT INTO dispatch VALUES (NULL,'"+unit_no+"','"+details+"','"+date+"','"+long+"','"+lat+"')"
+    
+    conn.query(sql, function (error, results) {
+        if (error) {
+            return response.status(500).json(error);
+        }
+
+        response.status(200).json("Successfuly added dispatch");
+    });
+};
+
+
 
 
 
@@ -384,5 +469,9 @@ module.exports = {
     register,
     getUnitLocation,
     getCrimeType,
-    getOneCrime
+    getOneCrime,
+    showDispatch,
+    addDispatch,
+    editDispatch,
+    getDispatch
 };
