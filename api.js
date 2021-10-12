@@ -110,7 +110,7 @@ const editCrime = async (request, response) => {
 
 const getAllCrimes = async (request, response) => {
 
-    var sql = "SELECT * FROM crimes JOIN crimetype ON crimes.crimeType_id = crimetype.id";
+    var sql = "SELECT * FROM crimes JOIN crimetype ON crimes.crimeType_id = crimetype.id ORDER BY crimes.id DESC";
 
     var returnObj = {
         status:1,
@@ -131,6 +131,7 @@ const getAllCrimes = async (request, response) => {
 };
 
 
+
 const searchCrime = async (request, response) => {
 
     // var choice = request.body.choice;
@@ -149,23 +150,22 @@ const searchCrime = async (request, response) => {
     var to = request.body.to;
     var ctype = null;
 
+    var part0=""
     var part1=""
     var part2=""
     var part3=""
     var part4=""
     var part5=""
+    var part6=""
 
-    if(request.body.choice == '0' ){
-        ctype = "Persons";
+    if(request.body.choice == ''){
+        part1 = "("+choice+" IS NULL OR crimetype.against='"+choice+"')";
+    }else if(request.body.choice == '0' ){
+        choice = "Persons";
+        part1 = "('"+choice+"' IS NULL OR crimetype.against='"+choice+"')";
     }else{
-        ctype = "Property";
-    }
-
-    if(request.body.choice != ""){
-        
-        part1 = "('"+ctype+"' IS NULL OR crimetype.against='"+ctype+"')"
-    }else{
-        part1 = "("+ctype+" IS NULL OR crimetype.against='"+ctype+"')"
+        choice = "Property";
+        part1 = "('"+choice+"' IS NULL OR crimetype.against='"+choice+"')";
     }
 
     if(request.body.crimecase != ""){
@@ -196,19 +196,21 @@ const searchCrime = async (request, response) => {
         part5 = "("+contact+" IS NULL OR reporter_contact='"+contact+"')"
     }
 
-    
+    if(request.body.from == "" && request.body.to != "" ){
+        part6 = " AND (date < '"+to+"')";
+    }else if(request.body.from != "" && request.body.to == "" ){
+        var currDate = new Date().toISOString().slice(0, 10);
 
-    // console.log(request.body);
-    // var sql = "SELECT * FROM crimes JOIN crimetype ON crimes.crimeType_id=crimetype.id WHERE crimetype.against='"+choice+"' OR crimetype.id='"+crimecase+"' OR status='"+status+"' OR barangay='"+searchbrgy+"' OR  reporter_contact='"+contact+"' OR date BETWEEN '"+from+"' AND '"+to+"'";
+        part6 = " AND (date BETWEEN '"+from+"' AND '"+currDate+"')";
+    }else if(request.body.from == "" && request.body.to == "" ){
+        part6 = ""
+    }
 
      console.log(choice)
      console.log(crimecase)
      console.log(statuss)
 
-
-    // var sql = "SELECT * FROM crimes JOIN crimetype ON crimes.crimeType_id=crimetype.id WHERE ('"+ctype+"' IS NULL OR crimetype.against='"+ctype+"') AND ('"+crimecase+"' IS NULL OR crimetype.id='"+crimecase+"') AND ('"+statuss+"' IS NULL OR status='"+statuss+"') AND ('"+searchbarangay+"' IS NULL OR barangay='"+searchbarangay+"') AND ('"+contact+"' IS NULL is null OR reporter_contact='"+contact+"') AND date BETWEEN "+from+" AND "+to;
-
-    var sql = "SELECT * FROM crimes JOIN crimetype ON crimes.crimeType_id=crimetype.id WHERE "+part1+"AND"+part2+"AND"+part3+"AND"+part4+"AND"+part5+"AND (date BETWEEN '"+from+"' AND '"+to+"')";
+    var sql = "SELECT * FROM crimes JOIN crimetype ON crimes.crimeType_id=crimetype.id WHERE "+part1+"AND"+part2+"AND"+part3+"AND"+part4+"AND"+part5+part6;
 
 
     console.log(sql)
@@ -250,6 +252,31 @@ const getAllCrimeTypes = async (request, response) => {
 
         returnObj.status = 0;
         returnObj.data = results;
+        response.status(200).json(returnObj)
+    });
+};
+
+const getOneCrime = async (request, response) => {
+    
+    var id = request.body.id;
+    console.log(id)
+
+    var sql = "SELECT * from crimes JOIN crimetype ON crimes.crimeType_id = crimetype.id WHERE crimes.id="+parseInt(id);
+
+    var returnObj = {
+        status:1,
+        data:""
+    }
+
+    conn.query(sql, function (error, results) {
+        if (error){
+            returnObj.data = error;
+            return response.status(500).json(returnObj)
+        }
+
+        returnObj.status = 0;
+        returnObj.data = results;
+        console.log(returnObj)
         response.status(200).json(returnObj)
     });
 };
@@ -356,5 +383,6 @@ module.exports = {
     login,
     register,
     getUnitLocation,
-    getCrimeType
+    getCrimeType,
+    getOneCrime
 };
