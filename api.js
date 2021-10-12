@@ -190,7 +190,7 @@ const searchCrime = async (request, response) => {
         part6 = " AND (date < '"+to+"')";
     }else if(request.body.from != "" && request.body.to == "" ){
         var currDate = new Date();
-        let date = ("0" + currDate.getDate()).slice(-2);
+        let date = ("0" + currDate.getDate());
 
         part6 = " AND (date BETWEEN '"+from+"' AND '"+date+"')";
     }else if(request.body.from == "" && request.body.to == "" ){
