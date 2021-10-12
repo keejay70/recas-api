@@ -158,13 +158,6 @@ const searchCrime = async (request, response) => {
         part0 = "('"+choice+"' IS NULL OR crimetype.against='"+choice+"')";
     }
 
-    if(request.body.choice != ""){
-        
-        part1 = "('"+ctype+"' IS NULL OR crimetype.against='"+ctype+"')"
-    }else{
-        part1 = "("+ctype+" IS NULL OR crimetype.against='"+ctype+"')"
-    }
-
     if(request.body.crimecase != ""){
         crimecase = request.body.crimecase
         part2 = "('"+crimecase+"' IS NULL OR crimetype.id='"+crimecase+"')"
